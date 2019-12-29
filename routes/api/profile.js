@@ -101,6 +101,6 @@ router.delete("/education/:edu_id", auth, ProfileController.deleteEducation);
 // @route   GET api/profile/github/:username
 // @desc    Get user repos from github
 // @access  Public
-router.get("/github/:username", ProfileController.getGithubUserRepos);
+router.get("/github/:username", ProfileController.getUserGithubRepos);
 
 module.exports = router;

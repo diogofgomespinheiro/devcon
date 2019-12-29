@@ -242,7 +242,7 @@ exports.deleteEducation = async (req, res) => {
   }
 };
 
-exports.getGithubUserRepos = (req, res) => {
+exports.getUserGithubRepos = (req, res) => {
   try {
     const options = {
       uri: `https://api.github.com/users/${req.params.username}/repos?per_page=10&sort=created:asc&client=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}`,
