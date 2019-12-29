@@ -14,4 +14,14 @@ router.post(
   PostsController.createPost
 );
 
+// @route   GET api/posts
+// @desc    Get all posts
+// @access  Private
+router.get("/",auth,PostsController.getAllPosts);
+
+// @route   GET api/posts/:id
+// @desc    Get post by id
+// @access  Private
+router.get("/:id",auth,PostsController.getPostById);
+
 module.exports = router;
