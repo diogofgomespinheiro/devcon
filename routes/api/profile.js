@@ -97,4 +97,10 @@ ProfileController.addEducation
 // @access  Private
 router.delete("/education/:edu_id", auth, ProfileController.deleteEducation);
 
+
+// @route   GET api/profile/github/:username
+// @desc    Get user repos from github
+// @access  Public
+router.get("/github/:username", ProfileController.getGithubUserRepos);
+
 module.exports = router;

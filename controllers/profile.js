@@ -1,3 +1,4 @@
+const request = require("request");
 const { validationResult } = require("express-validator");
 
 const Profile = require("../models/Profile");
@@ -227,14 +228,38 @@ exports.deleteEducation = async (req, res) => {
 
     const removeIndex = profile.education
       .map(item => item._id)
-      .indexOf(req.params.edu_id)
-    
+      .indexOf(req.params.edu_id);
+
     if (removeIndex !== -1) {
       profile.education.splice(removeIndex, 1);
-      profile.save(); 
+      profile.save();
     }
 
     res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+exports.getGithubUserRepos = (req, res) => {
+  try {
+    const options = {
+      uri: `https://api.github.com/users/${req.params.username}/repos?per_page=10&sort=created:asc&client=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}`,
+      method: "GET",
+      headers: { "user-agent": "node.js" }
+    };
+
+    request(options, (error, response, body) => {
+      if (error) console.error(error);
+
+      if (response.statusCode !== 200) {
+        return res.status(404).json({ msg: "No Github profile found"});
+      }
+
+      res.json(JSON.parse(body));
+    })
+
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
