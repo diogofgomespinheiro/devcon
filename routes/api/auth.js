@@ -6,7 +6,7 @@ const { check } = require("express-validator");
 const AuthController = require("../../controllers/auth");
 
 // @route   GET api/auth
-// @desc    Test route
+// @desc    Get user data
 // @access  Private
 router.get("/", auth, AuthController.getUserData);
 
