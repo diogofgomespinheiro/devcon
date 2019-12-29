@@ -106,12 +106,14 @@ exports.getCurrentUserProfile = async (req, res) => {
     }).populate("user", ["name", "avatar"]);
 
     if (!profile) {
-      return res.status(400).json({ msg: "There is no profile for this user" });
+      return res.status(400).json({ msg: "Profile not found" });
     }
 
     res.json(profile);
   } catch (err) {
     console.error(err.message);
+    if (err.kind == "ObjectId")
+      return res.status(400).json({ msg: "Profile not found" });
     res.status(500).send("Server Error");
   }
 };
@@ -151,6 +153,8 @@ exports.addExperience = async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
+    if (!profile) return res.status(400).json({ msg: "Profile not found" });
+
     profile.experience.unshift(newExp);
 
     await profile.save();
@@ -158,6 +162,8 @@ exports.addExperience = async (req, res) => {
     res.json(profile);
   } catch (err) {
     console.error(err.message);
+    if (err.kind == "ObjectId")
+      return res.status(400).json({ msg: "Profile not found" });
     res.status(500).send("Server Error");
   }
 };
@@ -166,18 +172,22 @@ exports.deleteExperience = async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
+    if (!profile) return res.status(400).json({ msg: "Profile not found" });
+
     const removeIndex = profile.experience
       .map(item => item._id)
       .indexOf(req.params.exp_id);
 
     if (removeIndex !== -1) {
       profile.experience.splice(removeIndex, 1);
-      profile.save();
+      await profile.save();
     }
 
     res.json(profile);
   } catch (err) {
     console.error(err.message);
+    if (err.kind == "ObjectId")
+      return res.status(400).json({ msg: "Profile not found" });
     res.status(500).send("Server Error");
   }
 };
@@ -211,6 +221,8 @@ exports.addEducation = async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
+    if (!profile) return res.status(400).json({ msg: "Profile not found" });
+
     profile.education.unshift(newEdu);
 
     await profile.save();
@@ -218,6 +230,8 @@ exports.addEducation = async (req, res) => {
     res.json(profile);
   } catch (err) {
     console.error(err.message);
+    if (err.kind == "ObjectId")
+      return res.status(400).json({ msg: "Profile not found" });
     res.status(500).send("Server Error");
   }
 };
@@ -226,18 +240,22 @@ exports.deleteEducation = async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
+    if (!profile) return res.status(400).json({ msg: "Profile not found" });
+
     const removeIndex = profile.education
       .map(item => item._id)
       .indexOf(req.params.edu_id);
 
     if (removeIndex !== -1) {
       profile.education.splice(removeIndex, 1);
-      profile.save();
+      await profile.save();
     }
 
     res.json(profile);
   } catch (err) {
     console.error(err.message);
+    if (err.kind == "ObjectId")
+      return res.status(400).json({ msg: "Profile not found" });
     res.status(500).send("Server Error");
   }
 };
@@ -254,12 +272,11 @@ exports.getUserGithubRepos = (req, res) => {
       if (error) console.error(error);
 
       if (response.statusCode !== 200) {
-        return res.status(404).json({ msg: "No Github profile found"});
+        return res.status(404).json({ msg: "No Github profile found" });
       }
 
       res.json(JSON.parse(body));
-    })
-
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
