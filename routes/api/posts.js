@@ -24,4 +24,9 @@ router.get("/",auth,PostsController.getAllPosts);
 // @access  Private
 router.get("/:id",auth,PostsController.getPostById);
 
+// @route   DELETE api/posts/:id
+// @desc    Delete a post
+// @access  Private
+router.delete("/:id",auth,PostsController.deletePost);
+
 module.exports = router;
