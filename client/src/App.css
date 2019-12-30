@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #23D291;
+  --primary-color: rgb(42, 168, 122);
   --dark-color: #27292B ;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
@@ -256,6 +256,7 @@ img {
   padding: 0.4rem;
   font-size: 1.2rem;
   border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .form input[type='submit'],
