@@ -1,5 +1,6 @@
 //Library imports
 import React from "react";
+import { Link } from "react-router-dom";
 
 //Style imports
 import "./styles.css";
@@ -15,12 +16,12 @@ const Landing = () => {
             other developers
           </p>
           <div className="buttons">
-            <a href="#" className="btn btn-primary">
+            <Link to="/register" className="btn btn-primary">
               Sign Up
-            </a>
-            <a href="#" className="btn btn-light">
+            </Link>
+            <Link to="/login" className="btn btn-light">
               Login
-            </a>
+            </Link>
           </div>
         </div>
       </div>
