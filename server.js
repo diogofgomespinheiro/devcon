@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const connectDB = require("./config/db");
 
 if (process.env.NODE_ENV !== "production") dotenv.config();
@@ -9,7 +10,8 @@ const app = express();
 connectDB();
 
 //Init Middleware
-app.use(express.json({ extended: false }));
+app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => res.send("API Running"));
 

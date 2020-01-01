@@ -1,5 +1,10 @@
 //Library imports
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+
+//Redux
+import { setAlert } from "../../store/modules/alert/actions";
 
 //Style imports
 import "./styles.css";
@@ -14,18 +19,22 @@ const Register = () => {
 
   const { name, email, password, confirmPassword } = formData;
 
+  const dispatch = useDispatch();
+
+  const onSetAlert = (msg, alertType) => dispatch(setAlert(msg, alertType));
+
   const handleChange = event => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      console.log("Passwords do not match")
+      onSetAlert("Passwords do not match", "danger");
     } else {
-      console.log(formData);
+      console.log("Success");
     }
   }
 
@@ -85,7 +94,7 @@ const Register = () => {
         <input type="submit" className="btn btn-primary" value="Register" />
       </form>
       <p className="my-1">
-        Already have an account? <a href="login.html">Sign In</a>
+        Already have an account? <Link to="/login">Sign In</Link>
       </p>
     </>
   );
