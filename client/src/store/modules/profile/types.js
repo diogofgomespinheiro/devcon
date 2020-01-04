@@ -1,0 +1,7 @@
+const profileActionTypes = {
+  GET_PROFILE_START: "GET_PROFILE_START",
+  GET_PROFILE_SUCCESS: "GET_PROFILE_SUCCESS",
+  GET_PROFILE_FAILED: "GET_PROFILE_FAILED"
+}
+
+export default profileActionTypes;

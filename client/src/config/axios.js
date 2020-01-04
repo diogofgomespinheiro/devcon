@@ -8,7 +8,7 @@ export const setAuthToken = token => {
   if (token) {
     instance.defaults.headers.common["x-auth-token"] = token;
   } else {
-    delete axios.defaults.headers.common["x-auth-token"];
+    delete instance.defaults.headers.common["x-auth-token"];
   }
 }
 

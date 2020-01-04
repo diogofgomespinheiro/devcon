@@ -76,6 +76,7 @@ export const loadUser = () => async dispatch => {
     const res = await axios.get("/api/auth");
     dispatch(loadUserSuccess(res.data));
   } catch (err) {
+    console.log(err.response);
     dispatch(loadUserFailed());
   }
 }
