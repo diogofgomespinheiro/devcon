@@ -30,7 +30,7 @@ const Navbar = () => {
   const guestLinks = (
     <ul>
       <li>
-        <a href="#!">Developers</a>
+        <Link to="/dashboard">Developers</Link>
       </li>
       <li>
         <Link to="/register">Register</Link>
