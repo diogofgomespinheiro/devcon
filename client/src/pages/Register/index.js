@@ -1,10 +1,11 @@
 //Library imports
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 
 //Redux
 import { setAlert } from "../../store/modules/alert/actions";
+import { register } from "../../store/modules/auth/actions";
 
 //Style imports
 import "./styles.css";
@@ -19,9 +20,12 @@ const Register = () => {
 
   const { name, email, password, confirmPassword } = formData;
 
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
   const dispatch = useDispatch();
 
   const onSetAlert = (msg, alertType) => dispatch(setAlert(msg, alertType));
+  const onRegister = (userData) => dispatch(register(userData));
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -34,8 +38,12 @@ const Register = () => {
     if (password !== confirmPassword) {
       onSetAlert("Passwords do not match", "danger");
     } else {
-      console.log("Success");
+      onRegister({ name, email, password });
     }
+  }
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />
   }
 
   return (
@@ -52,7 +60,6 @@ const Register = () => {
             name="name"
             value={name}
             onChange={handleChange}
-            required
           />
         </div>
         <div className="form-group">
@@ -62,7 +69,6 @@ const Register = () => {
             name="email"
             value={email}
             onChange={handleChange}
-            required
           />
           <small className="form-text">
             This site uses Gravatar so if you want a profile image, use a

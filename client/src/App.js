@@ -1,5 +1,6 @@
 //Library imports
-import React from "react";
+import React, { useEffect } from "react";
+import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 //Component imports
@@ -8,22 +9,28 @@ import Landing from "./pages/Landing";
 import Routes from "./routes";
 
 //Redux
-import { Provider } from "react-redux";
 import store from "./store/store";
+import { loadUser } from "./store/modules/auth/actions";
 
 //Style imports
 import "./App.css";
 
-const App = () => (
-  <Provider store={store}>
-    <BrowserRouter>
-      <Navbar />
-      <Switch>
-        <Route exact path="/" component={Landing} />
-        <Route component={Routes} />
-      </Switch>
-    </BrowserRouter>
-  </Provider>
-);
+const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, [])
+
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route component={Routes} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  );
+};
 
 export default App;

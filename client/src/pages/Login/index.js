@@ -1,6 +1,10 @@
 //Library imports
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+
+//Redux imports
+import { login } from "../../store/modules/auth/actions";
  
 //Style imports
 import "./styles.css";
@@ -13,6 +17,12 @@ const Login = () => {
 
   const { email, password } = formData;
 
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
+  const dispatch = useDispatch();
+
+  const onLogin = (formData) => dispatch(login(formData));
+
   const handleChange = event => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -20,7 +30,11 @@ const Login = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log("Success");
+    onLogin(formData);
+  }
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />
   }
 
   return (
