@@ -1,4 +1,5 @@
 import authActionTypes from "./types";
+import profileActionTypes from "../profile/types";
 import axios, { setAuthToken } from "../../../config/axios";
 import { setAlert } from "../alert/actions";
 
@@ -67,7 +68,7 @@ export const loadUserFailed = () => {
 
 
 export const loadUser = () => async dispatch => {
-  dispatch(loadUserStart());
+  //dispatch(loadUserStart());
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -125,8 +126,7 @@ export const login = ({ email, password }) => async dispatch => {
   }
 }
 
-export const logout = () => {
-  return {
-    type: authActionTypes.LOGOUT
-  }
+export const logout = () => dispatch => {
+  dispatch({ type: profileActionTypes.CLEAR_PROFILE});
+  dispatch({ type: authActionTypes.LOGOUT});
 }
