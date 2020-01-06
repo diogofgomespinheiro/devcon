@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 //Component imports
 import Spinner from "../../components/Spinner";
+import DashboardActions from "./components/DashboardActions";
 
 //Redux imports
 import { getCurrentProfile } from "../../store/modules/profile/actions";
@@ -33,7 +34,9 @@ const Dashboard = () => {
         <i className="fas fa-user"> Welcome {user && user.name}</i>
       </p>
       {profile !== null ? (
-        <>has</>
+        <>
+          <DashboardActions />
+        </>
       ) : (
         <>
           <p>You have not yet setup a profile, please add some info</p>

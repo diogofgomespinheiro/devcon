@@ -16,12 +16,13 @@ const profileReducer = (state = INITIAL_STATE, action) => {
         isLoading: true
       };
     case profileActionTypes.GET_PROFILE_SUCCESS:
+    case profileActionTypes.UPDATE_PROFILE:
       return {
         ...state,
         profile: action.payload,
         isLoading: false
       };
-    case profileActionTypes.GET_PROFILE_FAILED:
+    case profileActionTypes.PROFILE_ERROR:
       return {
         ...state,
         error: action.payload,
