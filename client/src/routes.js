@@ -9,6 +9,8 @@ import Alert from "./components/Alert";
 import Dashboard from "./pages/Dashboard";
 import CreateProfile from "./pages/Dashboard/components/CreateProfile";
 import EditProfile from "./pages/Dashboard/components/EditProfile";
+import AddExperience from "./pages/Dashboard/components/AddExperience";
+import AddEducation from "./pages/Dashboard/components/AddEducation";
 import PrivateRoute from "./components/PrivateRoute";
 
 const Routes = () => {
@@ -21,6 +23,8 @@ const Routes = () => {
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute exact path="/create-profile" component={CreateProfile} />
         <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+        <PrivateRoute exact path="/add-experience" component={AddExperience} />
+        <PrivateRoute exact path="/add-education" component={AddEducation} />
       </Switch>
     </section>
   );
