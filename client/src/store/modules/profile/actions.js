@@ -1,4 +1,5 @@
 import profileActionTypes from "./types";
+import authActionTypes from "../auth/types";
 import axios from "../../../config/axios";
 import { setAlert } from "../alert/actions";
 
@@ -60,6 +61,19 @@ export const updateProfile = (profile) => {
   }
 }
 
+export const clearProfile = () => {
+  return {
+    type: profileActionTypes.CLEAR_PROFILE
+  }
+}
+
+export const accountDeleted = () => {
+  return {
+    type: authActionTypes.ACCOUNT_DELETED
+  }
+}
+
+
 export const addExperience = (formData, history) => async dispatch => {
   try {
     const config = {
@@ -107,5 +121,39 @@ export const addEducation = (formData, history) => async dispatch => {
     }
 
     dispatch(profileError({ msg: err.response.data.msg, status: err.response.status }));
+  }
+}
+
+export const deleteExperience = id => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/profile/experience/${id}`);
+    dispatch(updateProfile(res.data));
+    dispatch(setAlert("Experience Removed", "success"));
+  } catch (err) {
+    dispatch(profileError({ msg: err.response.data.msg, status: err.response.status }));
+  }
+}
+
+export const deleteEducation = id => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/profile/education/${id}`);
+    dispatch(updateProfile(res.data));
+    dispatch(setAlert("Education Removed", "success"));
+  } catch (err) {
+    dispatch(profileError({ msg: err.response.data.msg, status: err.response.status }));
+  }
+}
+
+export const deleteAccount = () => async dispatch => {
+  if(window.confirm("Are you sure? This can NOT be undone!")) {
+    try {
+      await axios.delete(`/api/profile`);
+      dispatch(clearProfile());
+      dispatch(accountDeleted());
+
+      dispatch(setAlert("Your account has been permantly deleted", "danger"));
+    } catch (err) {
+      dispatch(profileError({ msg: err.response.data.msg, status: err.response.status }));
+    }
   }
 }

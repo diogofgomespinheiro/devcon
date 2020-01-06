@@ -6,14 +6,14 @@ import { Link } from "react-router-dom";
 //Redux imports
 import { addEducation } from "../../../../store/modules/profile/actions";
 
-const AddEducation = ( { history } ) => {
+const AddEducation = ({ history }) => {
   const [formData, setFormData] = useState({
     school: "",
     degree: "",
     fieldofstudy: "",
     from: "",
     to: "",
-    current: false, 
+    current: false,
     description: ""
   });
 
@@ -25,7 +25,7 @@ const AddEducation = ( { history } ) => {
     fieldofstudy,
     from,
     to,
-    current, 
+    current,
     description
   } = formData;
 
@@ -35,35 +35,56 @@ const AddEducation = ( { history } ) => {
     dispatch(addEducation(formData, history));
 
   const handleChange = event => {
-    setFormData({ ...formData, [event.target.name]: event.target.value })
-  }
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
 
   const handleChangeCurrent = () => {
-    setFormData({ ...formData, current: !current});
+    setFormData({ ...formData, current: !current });
     toggleToDate(!toDateDisabled);
-  }
+  };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
-    onAddEducation(formData,history);
-  }
+    onAddEducation(formData, history);
+  };
 
   return (
     <>
       <h1 className="large text-primary">Add Your Education</h1>
       <p className="lead">
-        <i className="fas fa-code-branch"></i> Add any school or bootcamp that you have attended
+        <i className="fas fa-code-branch"></i> Add any school or bootcamp that
+        you have attended
       </p>
       <small>* = required field</small>
       <form className="form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <input type="text" placeholder="* School or Bootcamp" name="school" value={school} onChange={handleChange} required />
+          <input
+            type="text"
+            placeholder="* School or Bootcamp"
+            name="school"
+            value={school}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div className="form-group">
-          <input type="text" placeholder="* Degree or Certificate" name="degree" value={degree} onChange={handleChange} required />
+          <input
+            type="text"
+            placeholder="* Degree or Certificate"
+            name="degree"
+            value={degree}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div className="form-group">
-          <input type="text" placeholder="Field of Study" name="fieldofstudy" value={fieldofstudy} onChange={handleChange} />
+          <input
+            type="text"
+            placeholder="Field of Study"
+            name="fieldofstudy"
+            value={fieldofstudy}
+            onChange={handleChange}
+          />
         </div>
         <div className="form-group">
           <h4>From Date</h4>
@@ -71,12 +92,24 @@ const AddEducation = ( { history } ) => {
         </div>
         <div className="form-group">
           <p>
-            <input type="checkbox" name="current" value={current} onChange={handleChangeCurrent} /> Current Job
+            <input
+              type="checkbox"
+              name="current"
+              value={current}
+              onChange={handleChangeCurrent}
+            />{" "}
+            Current School
           </p>
         </div>
         <div className="form-group">
           <h4>To Date</h4>
-          <input type="date" name="to" value={to} onChange={handleChange} disabled={toDateDisabled ? "disabled" : ""} />
+          <input
+            type="date"
+            name="to"
+            value={to}
+            onChange={handleChange}
+            disabled={toDateDisabled ? "disabled" : ""}
+          />
         </div>
         <div className="form-group">
           <textarea
@@ -84,7 +117,7 @@ const AddEducation = ( { history } ) => {
             cols="30"
             rows="5"
             placeholder="Program Description"
-            value={description} 
+            value={description}
             onChange={handleChange}
           ></textarea>
         </div>
