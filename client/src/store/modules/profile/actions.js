@@ -3,8 +3,8 @@ import authActionTypes from "../auth/types";
 import axios from "../../../config/axios";
 import { setAlert } from "../alert/actions";
 
-export const getProfileStart= () => ({
-  type: profileActionTypes.GET_PROFILE_START,
+export const fetchStart= () => ({
+  type: profileActionTypes.FETCH_START,
 });
 
 export const getProfileSuccess = (profile) => ({
@@ -18,13 +18,57 @@ export const profileError = (error) => ({
 });
 
 export const getCurrentProfile = () => async dispatch => {
-  dispatch(getProfileStart());
+  dispatch(fetchStart());
 
   try {
     const res = await axios.get("/api/profile/me");
     dispatch(getProfileSuccess(res.data));
   } catch (err) {
-    console.log(err.response);
+    dispatch(profileError({ msg: err.response.data.msg, status: err.response.status }));
+  }
+}
+
+export const getAllProfilesSuccess = (profiles) => ({
+  type: profileActionTypes.GET_ALL_PROFILES_SUCCESS,
+  payload: profiles
+});
+
+export const getAllProfiles = () => async dispatch => {
+  dispatch(fetchStart());
+
+  try {
+    const res = await axios.get("/api/profile");
+    dispatch(getAllProfilesSuccess(res.data));
+  } catch (err) {
+    dispatch(profileError({ msg: err.response.data.msg, status: err.response.status }));
+  }
+}
+
+export const getProfileById = userId => async dispatch => {
+  dispatch(fetchStart());
+
+  try {
+    const res = await axios.get(`/api/profile/${userId}`);
+    dispatch(getProfileSuccess(res.data));
+  } catch (err) {
+    dispatch(profileError({ msg: err.response.data.msg, status: err.response.status }));
+  }
+}
+
+export const getGithubReposSuccess = (repos) => {
+  return {
+    type: profileActionTypes.GET_GITHUB_REPOS_SUCCESS,
+    payload: repos
+  }
+}
+
+export const getGithubRepos = username => async dispatch => {
+  dispatch(fetchStart());
+
+  try {
+    const res = await axios.get(`/api/profile/github/${username}`);
+    dispatch(getGithubReposSuccess(res.data));
+  } catch (err) {
     dispatch(profileError({ msg: err.response.data.msg, status: err.response.status }));
   }
 }

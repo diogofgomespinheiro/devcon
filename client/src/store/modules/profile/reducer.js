@@ -10,7 +10,7 @@ const INITIAL_STATE = {
 
 const profileReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case profileActionTypes.GET_PROFILE_START:
+    case profileActionTypes.FETCH_START:
       return {
         ...state,
         isLoading: true
@@ -22,6 +22,12 @@ const profileReducer = (state = INITIAL_STATE, action) => {
         profile: action.payload,
         isLoading: false
       };
+    case profileActionTypes.GET_ALL_PROFILES_SUCCESS:
+      return {
+        ...state,
+        profiles: action.payload,
+        isLoading: false
+      }
     case profileActionTypes.PROFILE_ERROR:
       return {
         ...state,
@@ -33,6 +39,12 @@ const profileReducer = (state = INITIAL_STATE, action) => {
         ...state, 
         profile: null,
         repos: [],
+        isLoading: false
+      }
+    case profileActionTypes.GET_GITHUB_REPOS_SUCCESS:
+      return {
+        ...state,
+        repos: action.payload,
         isLoading: false
       }
     default:
