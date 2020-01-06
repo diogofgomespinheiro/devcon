@@ -5,12 +5,20 @@ import { Link } from "react-router-dom";
 
 //Component imports
 import Spinner from "../../../../components/Spinner";
+import ProfileTop from "./components/ProfileTop";
+import ProfileAbout from "./components/ProfileAbout";
+import ProfileExperience from "./components/ProfileExperience";
+import ProfileEducation from "./components/ProfileEducation";
+import ProfileGithub from "./components/ProfileGithub";
 
 //Redux imports
 import {
   getProfileById,
   clearProfile
 } from "../../../../store/modules/profile/actions";
+
+//Style imports
+import "./styles.css";
 
 const Profile = ({ match }) => {
   const profile = useSelector(state => state.profile.profile);
@@ -48,6 +56,37 @@ const Profile = ({ match }) => {
                 Edit Profile
               </Link>
             )}
+          <div className="profile-grid my-1">
+            <ProfileTop profile={profile} />
+            <ProfileAbout profile={profile} />
+            <div className="profile-exp bg-white p-2">
+              <h2 className="text-primary">Experience</h2>
+              {profile.experience.length > 0 ? (
+                <>
+                  {profile.experience.map(exp => (
+                    <ProfileExperience key={exp._id} experience={exp} />
+                  ))}
+                </>
+              ) : (
+                <h4>No experience credentials</h4>
+              )}
+            </div>
+            <div className="profile-edu bg-white p-2">
+              <h2 className="text-primary">Education</h2>
+              {profile.education.length > 0 ? (
+                <>
+                  {profile.education.map(edu => (
+                    <ProfileEducation key={edu._id} education={edu} />
+                  ))}
+                </>
+              ) : (
+                <h4>No education credentials</h4>
+              )}
+            </div>
+            {profile.githubusername && (
+              <ProfileGithub username={profile.githubusername} />
+            )}
+          </div>
         </>
       )}
     </>

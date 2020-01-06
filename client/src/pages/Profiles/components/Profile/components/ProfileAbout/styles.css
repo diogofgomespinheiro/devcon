@@ -1,0 +1,17 @@
+.profile-about {
+  grid-area: about;
+  text-align: center;
+}
+
+.profile-about .skills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .profile-about .skills {
+    flex-direction: column;
+  }
+}

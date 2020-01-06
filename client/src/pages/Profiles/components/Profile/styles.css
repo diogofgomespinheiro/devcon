@@ -1,0 +1,50 @@
+.profile-grid {
+  display: grid;
+  grid-template-areas:
+    'top top'
+    'about about'
+    'exp edu'
+    'github github';
+  grid-gap: 1rem;
+}
+
+.profile-exp {
+  grid-area: exp;
+}
+
+.profile-edu {
+  grid-area: edu;
+}
+
+.profile-exp h2,
+.profile-edu h2 {
+  margin-bottom: 1rem;
+}
+
+.profile-exp > div,
+.profile-edu > div {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: #ccc 1px dotted;
+}
+
+.profile-exp > div:last-child,
+.profile-edu > div:last-child {
+  border: 0;
+}
+
+.profile-exp p,
+.profile-edu p {
+  margin: 0.5rem 0;
+}
+
+@media (max-width: 700px) {
+  .profile-grid {
+    grid-template-areas:
+      'top'
+      'about'
+      'exp'
+      'edu'
+      'github';
+  }
+}
