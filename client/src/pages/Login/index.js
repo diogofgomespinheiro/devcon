@@ -9,7 +9,7 @@ import { login } from "../../store/modules/auth/actions";
 //Style imports
 import "./styles.css";
 
-const Login = () => {
+const Login = ({ history, location }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -34,6 +34,9 @@ const Login = () => {
   }
 
   if (isAuthenticated) {
+    if (location.state?.referrer) {
+      return <Redirect to={location.state.referrer} />
+    }
     return <Redirect to="/dashboard" />
   }
 

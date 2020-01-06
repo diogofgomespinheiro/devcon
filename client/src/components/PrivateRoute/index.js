@@ -12,7 +12,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={props =>
         !isAuthenticated && !isLoading ? (
-          <Redirect to="/login" />
+          <Redirect to={{
+            pathname: "/login",
+            state: { referrer: props.location.pathname }
+          }} />
         ) : (
           <Component {...props} />
         )
