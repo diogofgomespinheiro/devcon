@@ -11,6 +11,8 @@ import CreateProfile from "./pages/Dashboard/components/CreateProfile";
 import EditProfile from "./pages/Dashboard/components/EditProfile";
 import AddExperience from "./pages/Dashboard/components/AddExperience";
 import AddEducation from "./pages/Dashboard/components/AddEducation";
+import Profiles from "./pages/Profiles";
+import Profile from "./pages/Profiles/components/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 
 const Routes = () => {
@@ -21,6 +23,8 @@ const Routes = () => {
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <Route exact path='/profiles' component={Profiles} />
+        <Route exact path='/profile/:id' component={Profile} />
         <PrivateRoute exact path="/create-profile" component={CreateProfile} />
         <PrivateRoute exact path="/edit-profile" component={EditProfile} />
         <PrivateRoute exact path="/add-experience" component={AddExperience} />
