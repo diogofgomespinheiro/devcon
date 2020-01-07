@@ -3,43 +3,40 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 //Redux imports
-import { addPost } from "../../../../store/modules/posts/actions";
+import { addComment } from "../../../../../../store/modules/posts/actions";
 
-//Style imports
-import "./styles.css";
-
-const PostForm = () => {
+const CommentForm = ({ postId }) => {
   const [text, setText] = useState("");
 
   const dispatch = useDispatch();
 
-  const onAddPost = (text) => dispatch(addPost(text));
+  const onAddComment = (postId,text) => dispatch(addComment(postId,text));
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
-    onAddPost({text});
+    onAddComment(postId,{text});
     setText("");
   }
 
   return (
     <div className="post-form">
       <div className="bg-primary p">
-        <h3>Say Something...</h3>
+        <h3>Leave A Comment</h3>
       </div>
       <form className="form my-1" onSubmit={handleSubmit}>
         <textarea
           name="text"
           cols="30"
           rows="5"
-          placeholder="Create a post"
+          placeholder="Comment on this post"
           value={text}
           onChange={event => setText(event.target.value)}
           required
         ></textarea>
-        <input type="submit" className="btn btn-dark my-1" value="Post" />
+        <input type="submit" className="btn btn-dark my-1" value="Comment" />
       </form>
     </div>
   );
 };
 
-export default PostForm;
+export default CommentForm;

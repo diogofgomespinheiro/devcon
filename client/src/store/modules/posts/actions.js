@@ -87,7 +87,6 @@ export const addPost = formData => async dispatch => {
 
   try {
     const res = await axios.post(`/api/posts/`, formData, config);
-    console.log(res);
 
     dispatch(addPostSuccess(res.data));
     dispatch(setAlert("Post Created", "success"));
@@ -116,5 +115,47 @@ export const getPost = postId => async dispatch => {
 export const clearPost = () => {
   return { 
     type: postsActionTypes.CLEAR_POST
+  }
+}
+
+export const addCommentSuccess = (comments) => {
+  return {
+    type: postsActionTypes.ADD_COMMENT,
+    payload: comments
+  }
+}
+
+export const addComment = (postId, formData) => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }
+
+  try {
+    const res = await axios.post(`/api/posts/comment/${postId}`, formData, config);
+
+    dispatch(addCommentSuccess(res.data));
+    dispatch(setAlert("Comment Added", "success"));
+  } catch (err) {
+    dispatch(postsError({ msg: err.response.data.msg, status: err.response.status }));
+  }
+}
+
+export const removeCommentSuccess = (commentId) => {
+  return {
+    type: postsActionTypes.REMOVE_COMMENT,
+    payload: commentId
+  }
+}
+
+export const removeComment = (postId, commentId) => async dispatch => {
+  try {
+    await axios.delete(`/api/posts/comment/${postId}/${commentId}`);
+
+    dispatch(removeCommentSuccess(commentId));
+    dispatch(setAlert("Comment Removed", "success"));
+  } catch (err) {
+    dispatch(postsError({ msg: err.response.data.msg, status: err.response.status }));
   }
 }

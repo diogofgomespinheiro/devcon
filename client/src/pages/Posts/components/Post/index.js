@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 //Component imports
 import Spinner from "../../../../components/Spinner";
 import PostItem from "../PostItem";
+import CommentForm from "./components/CommentForm";
+import CommentItem from "./components/CommentItem";
 
 //Redux imports
 import { getPost, clearPost } from "../../../../store/modules/posts/actions";
@@ -36,6 +38,14 @@ const Post = ( { match } ) => {
           Back To Posts
         </Link>
         <PostItem post={post} />
+        <CommentForm postId={post._id}/>
+        <div className="comments">
+          {
+            post.comments.map(comment => (
+              <CommentItem key={comment._id} comment={comment} postId={post._id} />
+            ))
+          }
+        </div>
       </>
     )
   )
