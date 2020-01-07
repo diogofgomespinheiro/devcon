@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   post: null,
   isLoading: true,
   error: {}
-}
+};
 
 const postsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -14,16 +14,37 @@ const postsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         posts: action.payload,
         isLoading: false
-      }
+      };
     case postsActionTypes.POST_ERROR:
       return {
         ...state,
         error: action.payload,
         isLoading: false
+      };
+    case postsActionTypes.UPDATE_LIKES:
+      return {
+        ...state,
+        posts: state.posts.map(post =>
+          post._id === action.payload.id
+            ? { ...post, likes: action.payload.likes }
+            : post
+        )
+      };
+    case postsActionTypes.ADD_POST:
+      return {
+        ...state,
+        posts: [...state.posts, action.payload],
+        isLoading: false
+      }
+    case postsActionTypes.DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter(post => post._id !== action.payload),
+        isLoading: false
       }
     default:
       return state;
   }
-}
+};
 
 export default postsReducer;

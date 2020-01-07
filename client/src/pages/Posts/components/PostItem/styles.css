@@ -1,8 +1,3 @@
-.post-form .post-form-header {
-  background: var(--primary-color);
-  padding: 0.5rem;
-}
-
 .post {
   display: grid;
   grid-template-columns: 1fr 4fr;
