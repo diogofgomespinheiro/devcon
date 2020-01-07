@@ -30,7 +30,7 @@ const Profile = ({ match }) => {
   const onGetProfile = useCallback(userId => dispatch(getProfileById(userId)), [
     dispatch
   ]);
-  const onClearProfile = () => dispatch(clearProfile());
+  const onClearProfile = useCallback(() => dispatch(clearProfile()), [dispatch])
 
   useEffect(() => {
     onGetProfile(match.params.id);
@@ -38,7 +38,7 @@ const Profile = ({ match }) => {
     return () => {
       onClearProfile();
     };
-  }, [onGetProfile]);
+  }, [onGetProfile, match.params.id, onClearProfile]);
 
   return (
     <>

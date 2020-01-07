@@ -95,3 +95,26 @@ export const addPost = formData => async dispatch => {
     dispatch(postsError({ msg: err.response.data.msg, status: err.response.status }));
   }
 }
+
+export const getPostSuccess = (post) => {
+  return {
+    type: postsActionTypes.GET_POST_SUCCESS,
+    payload: post
+  }
+}
+
+export const getPost = postId => async dispatch => {
+  try {
+    const res = await axios.get(`/api/posts/${postId}`);
+
+    dispatch(getPostSuccess(res.data));
+  } catch (err) {
+    dispatch(postsError({ msg: err.response.data.msg, status: err.response.status }));
+  }
+}
+
+export const clearPost = () => {
+  return { 
+    type: postsActionTypes.CLEAR_POST
+  }
+}

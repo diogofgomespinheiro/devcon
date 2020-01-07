@@ -30,16 +30,28 @@ const postsReducer = (state = INITIAL_STATE, action) => {
             : post
         )
       };
+    case postsActionTypes.GET_POST_SUCCESS:
+      return {
+        ...state,
+        post: action.payload,
+        isLoading: false
+      }
     case postsActionTypes.ADD_POST:
       return {
         ...state,
-        posts: [...state.posts, action.payload],
+        posts: [ action.payload,...state.posts],
         isLoading: false
       }
     case postsActionTypes.DELETE_POST:
       return {
         ...state,
         posts: state.posts.filter(post => post._id !== action.payload),
+        isLoading: false
+      }
+    case postsActionTypes.CLEAR_POST:
+      return {
+        ...state,
+        post: null,
         isLoading: false
       }
     default:
