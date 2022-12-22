@@ -24,7 +24,7 @@
     "express-sslify": "^1.2.0",
     "express-validator": "^6.3.0",
     "gravatar": "^1.8.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.8.3",
     "react-transition-group": "^4.3.0",
     "request": "^2.88.0",
